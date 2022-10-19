@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/18 15:50:23 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 09:57:46 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,30 @@
 int	main(int argc, char **argv, char **env)
 {
 	int			i;
-	t_struct	*var;
-	char		*temp;
+	t_struct	*data;
 
 	i = 0;
-	var = calloc(sizeof(t_struct), 1);
-	if (!var)
-		exit (1);
 	(void)argc;
-	(void)argv;
-	while (ft_strnstr(env[i], "PATH", 4) == NULL)
-		i++;
-	temp = ft_substr(env[i], 5, ft_strlen(env[i]));
-	var->path = ft_split(temp, ':');
+	data = calloc(sizeof(t_struct), 1);
+	if (!data)
+		exit (1);
+	data->argv = argv;
+	find_and_split_path(data, env);
+	i = size_of_array(data->split_path);
+	data->path_name = ft_calloc(sizeof(char), i + 1);
+	if (!data->path_name)
+		exit (1);
 	i = 0;
-	while (var->path[i])
+	while (data->split_path[i])
 	{
-		var->path_name[i] = ft_strjoin(var->path[i], "/");
-		printf("%s\n", var->path_name[i]);
+		data->path_name[i] = ft_strjoin(data->split_path[i], "/");
+		printf("%s\n", data->path_name[i]);
 		i++;
 	}
-	var->good_path = check_path(var);
+	data->good_path = check_path(data);
+	printf("%s\n", data->good_path);
 	// execve("/bin/ls", options, env);
 	return (0);
-}
-
-char	*check_path(t_struct *var)
-{
-	int		i;
-	char	*temp;
-
-	i = 0;
-	while (var->path_name[i])
-	{
-		temp = ft_strjoin(var->path_name[i], var->argv[2]);
-		if (access(temp, F_OK | X_OK) == 0)
-			return (temp);
-		i++;
-	}
-	return ("good_path not find\n");
 }
 
 /*
@@ -70,14 +55,14 @@ char	*check_path(t_struct *var)
 	par exemple ls -l ou grep coucou (le nom du programme lui-même doit être
 	inclus à l’index 0 du tableau).
 
-	envp[], ou « environment pointer » , c’est un pointeur vers les variables
+	envp[], ou « environment pointer » , c’est un pointeur vers les dataiables
 	d’environnement spécifiques à chaque ordinateur. Elle contient beaucoup
-	d’informations à propos du système, y compris une variable qui va beaucoup
+	d’informations à propos du système, y compris une dataiable qui va beaucoup
 	nous intéresser pour trouver le premier paramètre de la
 	fonction execve: PATH.
 
 -	int access(const char *path, int mode);
-	access(var->path_name[i], F_OK | X_OK);
+	access(data->path_name[i], F_OK | X_OK);
 	X_OK for execute/search permission), or the existence test (F_OK).
 
 -	Pour voir le chemin d'une commande : which "commande" ou alors type
@@ -85,7 +70,7 @@ char	*check_path(t_struct *var)
 
 -	// extern char **environ;
 
--	Avant tout, il va falloir découper cette variable PATH (avec les fonctions
+-	Avant tout, il va falloir découper cette dataiable PATH (avec les fonctions
 	ft_strnstr,	ft_substr et ft_split de la libft !) en utilisant « : » comme
 	délimiteur.
 

@@ -6,7 +6,7 @@
 #    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2022/10/18 11:55:26 by mbertin          ###   ########.fr        #
+#    Updated: 2022/10/19 09:35:59 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS		=	-g -Wall -Werror -Wextra
 RM		=	rm -f
 
 SRCS		=	pipex.c				\
+				path.c				\
 
 OBJS		= 	${SRCS:.c=.o}
 
