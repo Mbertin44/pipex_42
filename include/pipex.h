@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:58:10 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 14:08:54 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:18:52 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int			size_of_array(char **array);
 void		find_and_split_path(t_struct *data, char **env);
 void		path_with_slash(t_struct *data);
 void		calloc_struct(t_struct **data);
+void		a_son_is_born();
 
 #endif

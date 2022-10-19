@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 14:10:36 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:47:22 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,34 @@ int	main(int argc, char **argv, char **env)
 	path_with_slash(data);
 	check_path(data, argv);
 	printf("%s\n", data->good_path);
-	// execve("/bin/ls", options, env);
+	a_son_is_born();
+	// execve(data->good_path, data->cmd->split_cmd, env);
 	return (0);
 }
 
+void	a_son_is_born()
+{
+	pid_t	pid;
+
+	printf("fork\n");
+	pid = fork();
+	if (pid == -1)
+	{
+		printf("Le fils n'est pas née :/\n");
+		exit (1);
+	}
+	if (pid == 0)
+	{
+		printf("Salut papa, c'est moi ton fils\n");
+		usleep(1000000);
+		printf("Gamin : DONE\n");
+	}
+	else if (pid > 0)
+	{
+		printf("C'est moi le daron\n");
+		printf("Daron : DONE\n");
+	}
+}
 /*
 
 -------------------- COMMENTAIRE ---------------------
@@ -70,6 +94,14 @@ int	main(int argc, char **argv, char **env)
 
 	./pipex "ls -la"
 
+-	Pour voir le procéssus : ps -e
+
+-	ATTENTION : NE PAS CONFONDRE LE PID (IDENTIFIANT DU PROCESSUS FOURNI GRACE À
+	LA VALEUR DE RETOUR DE FORK) ET LE CODE DE SORTIE (VALEUR DE RETOUR DE
+	WEXITSTATUS).
+
+	LE CODE DE SORTIE FOURNI PAR WEXITSTATUS ME SERA UTILE POUR L'EXECUTION DE
+	WAITPID
 -------------------- PROBLÈMES ---------------------
 
 	-

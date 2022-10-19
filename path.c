@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:35:11 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 14:10:23 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 14:55:59 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ void	find_and_split_path(t_struct *data, char **env)
 		i++;
 	full_path = ft_substr(env[i], 5, ft_strlen(env[i]));
 	data->split_path = ft_split(full_path, ':');
+}
+
+void	path_with_slash(t_struct *data)
+{
+	int	i;
+
+	i = 0;
+	i = size_of_array(data->split_path);
+	data->path_name = ft_calloc(sizeof(char *), i + 1);
+	if (!data->path_name)
+		exit (1);
+	i = 0;
+	while (data->split_path[i])
+	{
+		data->path_name[i] = ft_strjoin(data->split_path[i], "/");
+		i++;
+	}
 }
 
 void	*check_path(t_struct *data, char **argv)
@@ -42,22 +59,5 @@ void	*check_path(t_struct *data, char **argv)
 		}
 		i++;
 	}
-	return ("good_path not find\n");
-}
-
-void	path_with_slash(t_struct *data)
-{
-	int	i;
-
-	i = 0;
-	i = size_of_array(data->split_path);
-	data->path_name = ft_calloc(sizeof(char *), i + 1);
-	if (!data->path_name)
-		exit (1);
-	i = 0;
-	while (data->split_path[i])
-	{
-		data->path_name[i] = ft_strjoin(data->split_path[i], "/");
-		i++;
-	}
+	return (0);
 }
