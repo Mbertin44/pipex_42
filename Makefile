@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2022/10/19 09:35:59 by mbertin          ###   ########.fr        #
+#    Updated: 2022/10/19 14:09:42 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ CC		=	gcc
 CFLAGS		=	-g -Wall -Werror -Wextra
 RM		=	rm -f
 
-SRCS		=	pipex.c				\
-				path.c				\
+SRCS		=	pipex.c					\
+				path.c					\
+				pipex_utils.c			\
 
 OBJS		= 	${SRCS:.c=.o}
 
@@ -33,6 +34,7 @@ $(NAME): 		$(OBJS)
 				@echo "Compiling $(NAME) sources"
 				@$(CC) $(OBJS) $(LIBFT) $(CFLAGS) -o $(NAME)
 				@echo "Done !"
+
 
 all: 			$(NAME)
 

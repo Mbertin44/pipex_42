@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 09:57:46 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 14:10:36 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,14 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	int			i;
 	t_struct	*data;
 
-	i = 0;
 	(void)argc;
-	data = calloc(sizeof(t_struct), 1);
-	if (!data)
-		exit (1);
-	data->argv = argv;
+	data = NULL;
+	calloc_struct(&data);
 	find_and_split_path(data, env);
-	i = size_of_array(data->split_path);
-	data->path_name = ft_calloc(sizeof(char), i + 1);
-	if (!data->path_name)
-		exit (1);
-	i = 0;
-	while (data->split_path[i])
-	{
-		data->path_name[i] = ft_strjoin(data->split_path[i], "/");
-		printf("%s\n", data->path_name[i]);
-		i++;
-	}
-	data->good_path = check_path(data);
+	path_with_slash(data);
+	check_path(data, argv);
 	printf("%s\n", data->good_path);
 	// execve("/bin/ls", options, env);
 	return (0);

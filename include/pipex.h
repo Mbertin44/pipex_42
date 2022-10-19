@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:58:10 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 09:57:22 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/19 14:08:54 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ typedef struct s_struct
 typedef struct s_cmd
 {
 	char			**env;
-	char			*split_cmd;
-	char			**full_cmd;
+	char			**split_cmd;
+	char			*full_cmd;
 	struct s_cmd	*next;
 }	t_cmd;
 
-char	*check_path(t_struct *data);
-int		size_of_array(char **array);
-void	find_and_split_path(t_struct *data, char **env);
+void		*check_path(t_struct *data, char **argv);
+int			size_of_array(char **array);
+void		find_and_split_path(t_struct *data, char **env);
+void		path_with_slash(t_struct *data);
+void		calloc_struct(t_struct **data);
 
 #endif
