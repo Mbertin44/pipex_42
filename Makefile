@@ -6,7 +6,7 @@
 #    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2022/10/19 14:09:42 by mbertin          ###   ########.fr        #
+#    Updated: 2022/10/26 13:09:07 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ RM		=	rm -f
 
 SRCS		=	pipex.c					\
 				path.c					\
+				pipe_and_fork.c			\
 				pipex_utils.c			\
+				check_and_redirect.c	\
 
 OBJS		= 	${SRCS:.c=.o}
 
@@ -56,7 +58,7 @@ fclean: 		clean
 				@echo "Executable(s) and archive(s) successfully deleted."
 
 exe:			$(NAME)
-				valgrind --leak-check=full --show-leak-kinds=all ./pipex
+				valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-=children=yes ./pipex
 
 # Removes objects and executable then remakes all
 re: 			fclean all

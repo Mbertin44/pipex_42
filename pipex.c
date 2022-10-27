@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/19 16:47:22 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/10/26 12:01:56 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,64 @@ int	main(int argc, char **argv, char **env)
 {
 	t_struct	*data;
 
-	(void)argc;
-	data = NULL;
 	calloc_struct(&data);
-	find_and_split_path(data, env);
+	init_struct(data, argc, argv, env);
+	find_and_split_path(data);
 	path_with_slash(data);
-	check_path(data, argv);
-	printf("%s\n", data->good_path);
-	a_son_is_born();
-	// execve(data->good_path, data->cmd->split_cmd, env);
+	piping(data);
+	fork_and_execute(data);
+	close_pipe(data);
+	close(data->fd_in);
+	close(data->fd_out);
 	return (0);
 }
 
-void	a_son_is_born()
-{
-	pid_t	pid;
+// data->status = ft_calloc(sizeof(int), argc - 1);
+// data->res_wait = ft_calloc(sizeof(int), argc - 1);
 
-	printf("fork\n");
-	pid = fork();
-	if (pid == -1)
-	{
-		printf("Le fils n'est pas née :/\n");
-		exit (1);
-	}
-	if (pid == 0)
-	{
-		printf("Salut papa, c'est moi ton fils\n");
-		usleep(1000000);
-		printf("Gamin : DONE\n");
-	}
-	else if (pid > 0)
-	{
-		printf("C'est moi le daron\n");
-		printf("Daron : DONE\n");
-	}
-}
 /*
+	PIPING :
+
+	Je fais un pipe pour chaque commande qui doivent communiquer entre elle,
+	donc par exemple si jai 2 commande, j'ai un seul pipe. Si j'ai 3 commande
+	j'ai 2 pipes et ainsi de suite.
+
+	FORKING :
+
+	J'ai 1 fork par commande. Par exemple pour cat et wc, je vais pouvoir
+	envoyer le resulat de cat dans un pipe qui va être recupéré par un processus
+	fils. Ce processus fils va alors executer la commande wc et dupliquer le
+	resultat dans mon fichier fichier_out.txt
+
+
+
+
+------------------------------- SÉCURITÉ --------------------------------------
+
+- S'assurer que le programme fonctionne si on me donne en argument
+	"./pipex fichier1 "/bin/usr/ls" wc fichier2"
+
+
+	1. Je déclare une variable `status` pour la donner en paramètre à `wait`
+
+	2. Je déclare une variable `res_wait` pour récupérer la valeur de retour
+	de `wait`
+
+	3. J’appel `wait` DANS le processus du père (if pid > 0) pour suspendre
+	l’exécution du processus parent jusqu’à ce que l’état de son fils change
+	et je stock sa valeur de retour dans `res_wait`. La valeur de retour est
+	 le status du fils.
+
+	4. Dans un `if`, j’appel `WIFEXITE(status)` qui va me servir à analyser la
+	variable `status` et déterminer si le processus du fils c’est bien terminé.
+	 Si la valeur de retour == 1 alors la processus c’est terminé.
+
+	étant donné que plusieurs processus auront lieu en même temps, la valeur de
+	status et res_wait seront différent pour chaque boucle car il ne s’agit pas
+	du processus père. Bien sur il faut s’assurer que chaque appel de status et
+	res_wait ce fait bien dans le processus père (if pid > 0)
+
+
 
 -------------------- COMMENTAIRE ---------------------
 
@@ -80,7 +102,7 @@ void	a_son_is_born()
 
 -	// extern char **environ;
 
--	Avant tout, il va falloir découper cette dataiable PATH (avec les fonctions
+-	Avant tout, il va falloir découper variable PATH (avec les fonctions
 	ft_strnstr,	ft_substr et ft_split de la libft !) en utilisant « : » comme
 	délimiteur.
 
