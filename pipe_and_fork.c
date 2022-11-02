@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:41:12 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/26 17:18:13 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/02 08:47:07 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,14 @@ void	piping(t_struct *data)
 	int	i;
 
 	i = 0;
-	data->pipe = ft_calloc(sizeof(int *), (data->argc - 4) + 1);
+	data->pipe = ft_calloc(sizeof(int *), (data->cmd_count - 1));
 	if (!data->pipe)
+		error_and_exit();
+	while (i < data->cmd_count - 1)
 	{
-		write(2, "Error\n", 6);
-		//free
-		exit (1);
-	}
-	while (i < data->argc - 4)
-	{
-		data->pipe[i] = malloc(sizeof(int) * 2);
+		data->pipe[i] = ft_calloc(sizeof(int), 2);
 		if (pipe(data->pipe[i]) == -1)
-		{
-			write(2, "Error\n", 6);
-			//free
-			exit (1);
-		}
+			error_and_exit();
 		i++;
 	}
 }
@@ -56,25 +48,32 @@ void	piping(t_struct *data)
 void	fork_and_execute(t_struct *data)
 {
 	int	j;
+	int	i;
 
 	j = 2;
+	i = 2;
 	data->fork_count = 0;
-	while (data->fork_count < data->argc - 3)
+	while (data->fork_count < data->cmd_count)
 	{
 		data->pid = fork();
 		if (data->pid == -1)
-		{
-			write(2, "Error\n", 6);
-			//free
-			exit (EXIT_FAILURE);
-		}
+			error_and_exit();
 		else if (data->pid > 0)
 		{
 			check_redirection(data);
 			close_pipe(data);
-			check_path(data, j);
+			if (access(data->argv[j], F_OK | X_OK) != 0)
+				check_path(data, j);
+			else if (access(data->argv[j], F_OK | X_OK) == 0)
+			{
+				if (data->good_path)
+					free(data->good_path);
+				data->good_path = data->argv[j];
+				data->find_good_path = TRUE;
+			}
+			if (data->find_good_path == FALSE)
+				good_path_is_false(data);
 			execve(data->good_path, data->cmd->split_cmd, data->env);
-			//free
 			exit(EXIT_FAILURE);
 		}
 		j++;

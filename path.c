@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:35:11 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/26 17:14:27 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:06:35 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,23 @@
 void	find_and_split_path(t_struct *data)
 {
 	int		i;
+	int		j;
 	char	*full_path;
 
 	i = 0;
+	j = 0;
 	data->cmd_count = data->argc - 3;
-	while (ft_strnstr(data->env[i], "PATH=", 5) == NULL)
+	while (data->env[j])
+		j++;
+	while (i < j)
+	{
+		if (ft_strnstr(data->env[i], "PATH=", 5) != NULL)
+			break ;
 		i++;
+	}
 	full_path = ft_substr(data->env[i], 5, ft_strlen(data->env[i]));
 	data->split_path = ft_split(full_path, ':');
+	free (full_path);
 }
 
 /*
@@ -75,9 +84,11 @@ void	check_path(t_struct *data, int j)
 			if (data->good_path)
 				free(data->good_path);
 			data->good_path = temp;
+			data->find_good_path = TRUE;
 			break ;
 		}
 		free(temp);
 		i++;
 	}
+	i = 0;
 }

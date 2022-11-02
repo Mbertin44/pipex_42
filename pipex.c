@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/26 12:01:56 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/01 16:01:58 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,33 @@ int	main(int argc, char **argv, char **env)
 {
 	t_struct	*data;
 
-	calloc_struct(&data);
-	init_struct(data, argc, argv, env);
-	find_and_split_path(data);
-	path_with_slash(data);
-	piping(data);
-	fork_and_execute(data);
-	close_pipe(data);
-	close(data->fd_in);
-	close(data->fd_out);
+	if (argc == 5)
+	{
+		calloc_struct(&data);
+		init_struct(data, argc, argv, env);
+		find_and_split_path(data);
+		path_with_slash(data);
+		piping(data);
+		fork_and_execute(data);
+		close_pipe(data);
+		close(data->fd_in);
+		close(data->fd_out);
+		explore_and_free(data);
+	}
+	else
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
 	return (0);
 }
 
+/*
+
+-	./pipex file_in "/usr/bin/cat" "wc -l" file
+	Corriger si le chemin n'est pas bon dans argv[j].
+
+*/
 // data->status = ft_calloc(sizeof(int), argc - 1);
 // data->res_wait = ft_calloc(sizeof(int), argc - 1);
 

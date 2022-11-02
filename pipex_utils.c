@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:09:45 by mbertin           #+#    #+#             */
-/*   Updated: 2022/10/26 16:06:14 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/02 08:47:01 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_struct(t_struct *data, int argc, char **argv, char **env)
 	data->argv = argv;
 	data->argc = argc;
 	data->env = env;
+	data->find_good_path = FALSE;
 }
 
 void	calloc_struct(t_struct **data)
@@ -54,7 +55,8 @@ void	check_fd(t_struct *data, char **argv, char *which_fd)
 		if (data->fd_in == -1)
 		{
 			write(2, "Error\n", 6);
-			//free
+			close_pipe(data);
+			explore_and_free(data);
 			exit (1);
 		}
 		close(data->fd_in);
@@ -66,7 +68,8 @@ void	check_fd(t_struct *data, char **argv, char *which_fd)
 		if (data->fd_out == -1)
 		{
 			write(2, "Error\n", 6);
-			//free
+			close_pipe(data);
+			explore_and_free(data);
 			exit (1);
 		}
 	}

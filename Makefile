@@ -6,13 +6,14 @@
 #    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2022/10/26 13:09:07 by mbertin          ###   ########.fr        #
+#    Updated: 2022/11/01 16:37:56 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 LIBFT_PATH	=	libft
 LIBFT		=	libft/libft.a
+ARG			=	file_in "/bin/cat" "wc -l" file_out
 
 CC		=	gcc
 CFLAGS		=	-g -Wall -Werror -Wextra
@@ -23,6 +24,7 @@ SRCS		=	pipex.c					\
 				pipe_and_fork.c			\
 				pipex_utils.c			\
 				check_and_redirect.c	\
+				security.c				\
 
 OBJS		= 	${SRCS:.c=.o}
 
@@ -58,7 +60,7 @@ fclean: 		clean
 				@echo "Executable(s) and archive(s) successfully deleted."
 
 exe:			$(NAME)
-				valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-=children=yes ./pipex
+				valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./pipex $(ARG)
 
 # Removes objects and executable then remakes all
 re: 			fclean all
