@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:35:11 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/02 09:21:55 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/03 13:09:59 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	check_access(t_struct *data, int j)
 	{
 		if (data->good_path)
 			free(data->good_path);
-		data->good_path = data->argv[j];
+		data->good_path = ft_strdup(data->argv[j]);
 		data->find_good_path = TRUE;
 	}
 	if (data->find_good_path == FALSE)

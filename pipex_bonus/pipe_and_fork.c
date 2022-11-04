@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:41:12 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/02 09:23:30 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/03 13:27:26 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	fork_and_execute(t_struct *data)
 			execve(data->good_path, data->cmd->split_cmd, data->env);
 			exit(EXIT_FAILURE);
 		}
-		j++;
 		data->fork_count++;
+		j++;
 	}
 }

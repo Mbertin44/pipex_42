@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:58:10 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/02 09:22:36 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/03 16:35:57 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ typedef struct s_struct
 	char			*good_path;
 	int				find_good_path;
 	int				cmd_count;
-	int				*status;
+	int				status;
 	int				*res_wait;
 	int				**pipe;
 	int				fd_in;
 	int				fd_out;
 	int				fork_count;
 	int				pid;
+	int				heredoc_delimiter;
 	struct s_cmd	*cmd;
 }	t_struct;
 
@@ -61,9 +62,11 @@ void		redirection(int input, int output);
 void		close_pipe(t_struct *data);
 void		explore_and_free(t_struct *data);
 void		free_double_array_char(char **array);
-void		free_double_array_int(int **array);
+void		free_double_array_int(int **array, t_struct *data);
 void		good_path_is_false(t_struct *data);
 void		error_and_exit(void);
 void		check_access(t_struct *data, int j);
+void		wait_all(t_struct *data);
+void		heredoc(t_struct *data);
 
 #endif
