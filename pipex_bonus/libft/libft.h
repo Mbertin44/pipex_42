@@ -6,18 +6,21 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:08:19 by mbertin           #+#    #+#             */
-/*   Updated: 2022/09/01 09:36:14 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 13:53:48 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include<stdlib.h>
-# include<unistd.h>
-# include<stdio.h>
-# include "get_next_line.h"
-# include "printf.h"
+// # include "get_next_line.h"
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <limits.h>
 
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);

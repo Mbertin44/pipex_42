@@ -6,12 +6,16 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:58:10 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/07 12:25:52 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 13:55:35 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 # include "../libft/libft.h"
 # include <sys/wait.h>
@@ -37,6 +41,7 @@ typedef struct s_struct
 	int				fork_count;
 	int				pid;
 	int				heredoc_delimiter;
+	char			*buffer;
 	struct s_cmd	*cmd;
 }	t_struct;
 
@@ -70,5 +75,15 @@ void		error_and_exit(void);
 void		check_access(t_struct *data, int j);
 void		wait_all(t_struct *data);
 void		heredoc(t_struct *data);
+
+/*
+-------------------------------- GNL ----------------------------------
+*/
+
+char		*get_next_line(int fd, t_struct *data);
+char		*clean_line(char *buffer);
+char		*buffer_without_return_line(char *buffer);
+char		*ft_strchr_gnl(const char *s, int c);
+char		*ft_strjoin_gnl(char *s1, char *s2);
 
 #endif
