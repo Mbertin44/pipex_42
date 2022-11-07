@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:35:11 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 13:09:59 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 11:46:50 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	find_and_split_path(t_struct *data)
 
 	i = 0;
 	j = 0;
-	data->cmd_count = data->argc - 3;
+	if (data->heredoc_delimiter == TRUE)
+		data->cmd_count = data->argc - 4;
+	else
+		data->cmd_count = data->argc - 3;
 	while (data->env[j])
 		j++;
 	while (i < j)

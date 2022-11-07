@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:58:10 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 16:35:57 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 12:25:52 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void		calloc_struct(t_struct **data);
 void		piping(t_struct *data);
 void		fork_and_execute(t_struct *data);
 void		check_fd(t_struct *data, char **argv, char *which_fd);
+void		check_fd_in(t_struct *data, char **argv);
+void		check_fd_out(t_struct *data, char **argv);
 void		check_redirection(t_struct *data);
 void		redirection(int input, int output);
 void		close_pipe(t_struct *data);

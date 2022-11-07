@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:41:12 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 13:27:26 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 11:48:45 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	piping(t_struct *data)
 void	fork_and_execute(t_struct *data)
 {
 	int	j;
-	int	i;
 
 	j = 2;
-	i = 2;
+	if (data->heredoc_delimiter == TRUE)
+		j = 3;
 	while (data->fork_count < data->cmd_count)
 	{
 		data->pid = fork();

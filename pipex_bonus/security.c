@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 10:56:43 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 13:25:28 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 11:42:53 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	good_path_is_false(t_struct *data)
 	int	i;
 
 	i = 0;
-	write(2, "Error\n", 6);
+	write(2, "Error. Can't find the path of the command.\n", 42);
 	while (data->cmd->split_cmd[i])
 	{
 		free(data->cmd->split_cmd[i]);
@@ -67,6 +67,6 @@ void	good_path_is_false(t_struct *data)
 
 void	error_and_exit(void)
 {
-	write(2, "Error\n", 6);
+	write(2, "Error and exit.\n", 15);
 	exit(EXIT_FAILURE);
 }

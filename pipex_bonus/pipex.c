@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 16:35:48 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 11:39:43 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		calloc_struct(&data);
 		init_struct(data, argc, argv, env);
+		if (ft_strncmp("here_doc", argv[1], 9) == 0)
+			heredoc(data);
 		find_and_split_path(data);
 		path_with_slash(data);
 		piping(data);
@@ -31,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error. Not enought argument.\n", 28);
 		exit(1);
 	}
 	return (0);
@@ -40,10 +42,11 @@ int	main(int argc, char **argv, char **env)
 void	heredoc(t_struct *data)
 {
 	int		temp;
+	int		test;
 	char	*str;
 
 	temp = open("temp_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	while (data->heredoc == FALSE)
+	while (data->heredoc_delimiter == FALSE)
 	{
 		ft_putstr_fd("HEREDOC >", STDIN_FILENO);
 		str = get_next_line(STDIN_FILENO);
@@ -52,15 +55,15 @@ void	heredoc(t_struct *data)
 			free (str);
 			break ;
 		}
-		if (ft_strncmp(str, data->argv[2], ft_strlen(data->argv[2] + 1) == 0))
+		test = ft_strncmp(str, data->argv[2], ft_strlen(data->argv[2] + 1));
+		if (test == 0)
 			data->heredoc_delimiter = TRUE;
 		else
 			ft_putstr_fd(str, temp);
 		free(str);
 	}
-	close (temp);
-	open("temp_heredoc", O_RDONLY, 0644);
 	temp = dup(STDIN_FILENO);
+	close (temp);
 }
 /*
 

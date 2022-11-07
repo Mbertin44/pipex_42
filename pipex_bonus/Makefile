@@ -6,14 +6,14 @@
 #    By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 13:53:50 by mbertin           #+#    #+#              #
-#    Updated: 2022/11/03 13:17:53 by mbertin          ###   ########.fr        #
+#    Updated: 2022/11/07 12:26:58 by mbertin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 LIBFT_PATH	=	libft
 LIBFT		=	libft/libft.a
-ARG			=	file_in "cat" "grep o" "wc" file_out  
+ARG			=	file_in "cat" "grep o" "wc" file_out
 
 CC		=	gcc
 CFLAGS		=	-g -Wall -Werror -Wextra
@@ -25,6 +25,7 @@ SRCS		=	pipex.c					\
 				pipex_utils.c			\
 				check_and_redirect.c	\
 				security.c				\
+				check_fd.c				\
 
 OBJS		= 	${SRCS:.c=.o}
 

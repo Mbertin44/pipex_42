@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:56:40 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/03 13:27:01 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 12:31:05 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	redirection(int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error dup STDIN\n", 16);
 		exit (1);
 	}
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error dup STDOUT\n", 16);
 		exit (1);
 	}
 }
