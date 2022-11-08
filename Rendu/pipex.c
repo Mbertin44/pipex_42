@@ -6,7 +6,7 @@
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:52:35 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/08 16:46:15 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/08 16:56:55 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 	{
-		write(2, "Error.\n", 33);
+		write(2, "Error.\n", 7);
 		exit(1);
 	}
 	return (0);
