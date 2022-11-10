@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_and_redirect.c                               :+:      :+:    :+:   */
+/*   check_and_redirect_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:56:40 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/08 14:03:54 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:27:37 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 /*
 	Selon le child process ou je me trouve je vais vouloir modifier STDIN ou
@@ -59,12 +59,12 @@ void	redirection(int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) == -1)
 	{
-		write(2, "Error dup\n", 6);
+		write(2, "Error dup STDIN\n", 16);
 		exit (1);
 	}
 	if (dup2(output, STDOUT_FILENO) == -1)
 	{
-		write(2, "Error dup\n", 10);
+		write(2, "Error dup STDOUT\n", 16);
 		exit (1);
 	}
 }

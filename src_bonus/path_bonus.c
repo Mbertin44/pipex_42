@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   path_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:35:11 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/10 08:48:20 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/08 16:49:33 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 /*
 	Je cherche PATH dans mon tableau env. Quand je trouve "PATH" je vais
@@ -23,27 +23,26 @@
 */
 void	find_and_split_path(t_struct *data)
 {
-	int		i;
 	int		j;
 	char	*full_path;
 
-	i = 0;
 	j = 0;
-	data->cmd_count = data->argc - 3;
+	if (data->heredoc_delimiter == TRUE)
+		data->cmd_count = data->argc - 4;
+	else
+		data->cmd_count = data->argc - 3;
 	while (data->env[j])
-		j++;
-	while (i < j)
 	{
-		if (ft_strnstr(data->env[i], "PATH=", 5) != NULL)
+		if (ft_strnstr(data->env[j], "PATH=", 5) != NULL)
 		{
 			data->env_path = TRUE;
 			break ;
 		}
-		i++;
+		j++;
 	}
 	if (data->env_path != TRUE)
 		error_and_exit();
-	full_path = ft_substr(data->env[i], 5, ft_strlen(data->env[i]));
+	full_path = ft_substr(data->env[j], 5, ft_strlen(data->env[j]));
 	data->split_path = ft_split(full_path, ':');
 	free (full_path);
 }

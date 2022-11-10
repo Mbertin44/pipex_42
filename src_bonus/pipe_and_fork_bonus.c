@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_and_fork.c                                    :+:      :+:    :+:   */
+/*   pipe_and_fork_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:41:12 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/08 16:13:24 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/08 16:12:19 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 /*
 	Je calloc un double array de int pour pouvoir stock mes différent pipes,
@@ -50,6 +50,8 @@ void	fork_and_execute(t_struct *data)
 	int	j;
 
 	j = 2;
+	if (data->heredoc_delimiter == TRUE)
+		j = 3;
 	while (data->fork_count < data->cmd_count)
 	{
 		data->pid = fork();
@@ -62,7 +64,7 @@ void	fork_and_execute(t_struct *data)
 			check_access(data, j);
 			exit(EXIT_FAILURE);
 		}
-		j++;
 		data->fork_count++;
+		j++;
 	}
 }

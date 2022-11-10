@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:09:45 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/08 16:32:58 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/08 16:33:14 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	init_struct(t_struct *data, int argc, char **argv, char **env)
 {
@@ -20,6 +20,7 @@ void	init_struct(t_struct *data, int argc, char **argv, char **env)
 	data->env_path = FALSE;
 	data->find_good_path = FALSE;
 	data->fork_count = 0;
+	data->heredoc_delimiter = FALSE;
 }
 
 void	calloc_struct(t_struct **data)

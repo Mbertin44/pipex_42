@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   security.c                                         :+:      :+:    :+:   */
+/*   security_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbertin <mbertin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 10:56:43 by mbertin           #+#    #+#             */
-/*   Updated: 2022/11/08 14:04:09 by mbertin          ###   ########.fr       */
+/*   Updated: 2022/11/10 09:18:30 by mbertin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	explore_and_free(t_struct *data)
 {
@@ -19,10 +19,7 @@ void	explore_and_free(t_struct *data)
 	free_double_array_char(data->path_name);
 	free(data->path_name);
 	free(data->good_path);
-	if (data->cmd_count > 2)
-		free_double_array_int(data->pipe, data);
-	else if (data->cmd_count == 2)
-		free(data->pipe[0]);
+	free_double_array_int(data->pipe, data);
 	free(data->pipe);
 	free(data->cmd);
 	free(data);
@@ -57,7 +54,7 @@ void	good_path_is_false(t_struct *data)
 	int	i;
 
 	i = 0;
-	write(2, "Error. Path is wrong\n", 21);
+	write(2, "Error. Can't find the path of the command.\n", 43);
 	while (data->cmd->split_cmd[i])
 	{
 		free(data->cmd->split_cmd[i]);
@@ -70,6 +67,6 @@ void	good_path_is_false(t_struct *data)
 
 void	error_and_exit(void)
 {
-	write(2, "Error. Exit ...\n", 6);
+	write(2, "Error and exit.\n", 16);
 	exit(EXIT_FAILURE);
 }
