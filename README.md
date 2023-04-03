@@ -42,4 +42,4 @@ Pour utiliser cette fonctionnalité, vous pouvez ajouter autant de commandes que
 
 `./pipex infile "ls -l" "grep pipex" "cut -c1-5" outfile`
 
-Ce qui exécute les commandes ls -l, grep pipex et cut -c1-5 en utilisant deux pipes, en utilisant le contenu du fichier infile comme entrée et en écrivant la sortie dans le fichier outfile.
+Ce qui exécute les commandes `ls -l`, `grep pipex` et `cut -c1-5 en utilisant deux pipes, en utilisant le contenu du fichier infile comme entrée et en écrivant la sortie dans le fichier outfile.
